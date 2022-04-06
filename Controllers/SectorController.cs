@@ -6,12 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using crud.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace crud.Controllers
 {
     public class SectorController : Controller
     {
         private DSFEBABR2022Context db = new DSFEBABR2022Context();
+
+         private readonly INotyfService _notyf;
+        public SectorController(INotyfService notyf)
+        {
+            _notyf = notyf;
+        }
 
         // GET: Sector
         public ActionResult Index()
@@ -57,6 +64,7 @@ namespace crud.Controllers
             {
                 db.Add(sector);
                 db.SaveChanges();
+                _notyf.Success("Sector Agregado");
                 return RedirectToAction("Index");
             }
             ViewData["MunicipioId"] = new SelectList(db.Municipios, "Id", "Nombre", sector.MunicipioId);
@@ -98,6 +106,7 @@ namespace crud.Controllers
                 {
                     db.Update(sector);
                     db.SaveChanges();
+                    _notyf.Success("Sector agregado");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -143,6 +152,7 @@ namespace crud.Controllers
             var sector = db.Sectors.Find(id);
             db.Sectors.Remove(sector);
             db.SaveChanges();
+            _notyf.Success("Sector agregado");
             return RedirectToAction("Index");
         }
 

@@ -7,6 +7,7 @@
 
 <h1>Edit</h1>
 
+<!--
 <h4>EstadoCivil</h4>
 <hr />
 <div class="row">
@@ -39,12 +40,32 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
+</div> -->
+<div class="container2">
+    <h1>Edit</h1>
+    <h4>Estado Civil</h4>
     <a asp-action="Index">Back to List</a>
 </div>
-
+<form class="form-registrer" asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <input asp-for="Nombre" class="controls" type="text" name="Nombre" placeholder="Ingresar nombre">
+    </div>
+    <div>
+        <textarea asp-for="Descripcion" class="controls" placeholder="Ingrese descripcion"></textarea>
+    </div>
+    <div class="test">
+        <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
+    </div>
+    <div class="form-group">
+        <label asp-for="FechaCreacion" class="control-label"></label>
+        <input asp-for="FechaCreacion" class="form-control" />
+        <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+    </div>
+    <br>
+    <input type="submit" value="Save" class="botons" />
+</form>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

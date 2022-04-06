@@ -6,12 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using crud.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace crud.Controllers
 {
     public class ProvinciaController : Controller
     {
         private DSFEBABR2022Context db = new DSFEBABR2022Context();
+
+        private readonly INotyfService _notyf;
+        public ProvinciaController(INotyfService notyf)
+        {
+            _notyf = notyf;
+        }
 
         // GET: Provincia
         public ActionResult Index()
@@ -53,7 +60,8 @@ namespace crud.Controllers
             if (ModelState.IsValid)
             {
                 db.Add(provincium);
-                db.SaveChangesAsync();
+                db.SaveChanges();
+                _notyf.Success("Provincia agregada");
                 return RedirectToAction("Index");
             }
             return View(provincium);
@@ -92,7 +100,8 @@ namespace crud.Controllers
                 try
                 {
                     db.Update(provincium);
-                    db.SaveChangesAsync();
+                    _notyf.Success("Provincia editada");
+                    db.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -135,6 +144,7 @@ namespace crud.Controllers
         {
             var provincium = db.Provincia.Find(id);
             db.Provincia.Remove(provincium);
+            _notyf.Success("Provincia eliminada");
             db.SaveChanges();
             return RedirectToAction("Index");
         }

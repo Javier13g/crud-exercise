@@ -5,10 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>CiudadanoEstado</h4>
-<hr />
 <!--<div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -34,25 +31,24 @@
         </form>
     </div>
 </div>-->
-<main class="main">
-    <div class="container2">
-        <h1>C</h1>
+<div class="container2">
+    <h1>Create</h1>
+    <h4>CiudadanoEstado</h4>
+    <a asp-action="Index">Back to List</a>
+</div>
+<form class="form-registrer" asp-action="Create">
+    <div>
+        <input asp-for="Nombre" class="controls" type="text" name="Nombre" placeholder="Ingresar nombre">
     </div>
-    <form class="form-registrer" asp-action="Create">
-        <div>
-            <input asp-for="Nombre" class="controls" type="text" name="Nombre" placeholder="Ingresar nombre">
-        </div>
-        <div>
-            <textarea asp-for="Descripcion" class="controls" placeholder="Ingrese descripcion"></textarea>
-        </div>
-        <div>
-            <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
-        </div>
-        <br>
-        <input type="submit" value="Create" class="botons" />
-        <input type="button" value="Back to list" class="botons" asp-action="Index"/>
-    </form>
-</main>
+    <div>
+        <textarea asp-for="Descripcion" class="controls" placeholder="Ingrese descripcion"></textarea>
+    </div>
+    <div class="test">
+        <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
+    </div>
+    <br>
+    <input type="submit" value="Create" class="botons" />
+</form>
 
 @section Scripts {
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

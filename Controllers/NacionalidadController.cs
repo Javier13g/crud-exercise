@@ -6,13 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using crud.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace crud.Controllers
 {
     public class NacionalidadController : Controller
     {
         private DSFEBABR2022Context db = new DSFEBABR2022Context();
-
+        private readonly INotyfService _notyf;
+        public NacionalidadController(INotyfService notyf)
+        {
+            _notyf = notyf;
+        }
         // GET: Nacionalidad
         public ActionResult Index()
         {
@@ -53,7 +58,8 @@ namespace crud.Controllers
             if (ModelState.IsValid)
             {
                 db.Add(nacionalidad);
-                db.SaveChangesAsync();
+                db.SaveChanges();
+                _notyf.Success("Nacionalidad agregada");
                 return RedirectToAction("Index");
             }
 
@@ -94,6 +100,7 @@ namespace crud.Controllers
                 try
                 {
                     db.Update(nacionalidad);
+                    _notyf.Success("Nacionalidad Editada");
                     db.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -139,6 +146,7 @@ namespace crud.Controllers
         {
             var nacionalidad = db.Nacionalidads.Find(id);
             db.Nacionalidads.Remove(nacionalidad);
+            _notyf.Success("Nacionalidad eliminada");
             db.SaveChanges();
             return RedirectToAction("Index");
         }

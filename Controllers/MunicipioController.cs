@@ -61,7 +61,7 @@ namespace crud.Controllers
             if (ModelState.IsValid)
             {
                 db.Add(municipio);
-                _notyf.Success("Dato agregado");
+                _notyf.Success("Municipio agregado");
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

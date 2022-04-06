@@ -81,6 +81,7 @@ p {
     max-width: 850px;
     text-align: center;
     margin: 0 auto;
+    margin-top: 100px;
 }
 
 /*table css*/
@@ -225,9 +226,9 @@ tr:hover td {
     color: #fff;
 }
 
-input[type="checkbox"] {
+/*input[type="checkbox"] {
     display: none;
-}
+}*/
 
 .content {
     position: absolute;
@@ -266,6 +267,7 @@ input[type="checkbox"] {
     background: #24303c;
     padding: 30px;
     margin: 0 auto;
+    margin-top: auto;
     /*width: 100%;
     max-width: 850px;
     text-align: center;*/
@@ -304,3 +306,4 @@ input[type="checkbox"] {
     margin: 16px 0;
     font-size: 16px;
 }
+

@@ -6,12 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using crud.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace crud.Controllers
 {
     public class TipoSangreController : Controller
     {
         private readonly DSFEBABR2022Context db = new DSFEBABR2022Context();
+        private readonly INotyfService _notyf;
+        public TipoSangreController(INotyfService notyf)
+        {
+            _notyf = notyf;
+        }
         // GET: TipoSangre
         public ActionResult Index()
         {
@@ -52,7 +58,8 @@ namespace crud.Controllers
             if (ModelState.IsValid)
             {
                 db.Add(tipoDeSangre);
-                db.SaveChangesAsync();
+                db.SaveChanges();
+                _notyf.Success("Tipo de sangre agregada");
                 return RedirectToAction("Index");
             }
             return View(tipoDeSangre);
@@ -90,8 +97,9 @@ namespace crud.Controllers
             {
                 try
                 {
-                    db.Update(tipoDeSangre); 
-                    db.SaveChangesAsync();
+                    db.Update(tipoDeSangre);
+                    _notyf.Success("Tipo de sangre editada"); 
+                    db.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -134,6 +142,7 @@ namespace crud.Controllers
         {
             var tipoDeSangre = db.TipoDeSangres.Find(id);
             db.TipoDeSangres.Remove(tipoDeSangre);
+            _notyf.Success("Sangre eliminada");
             db.SaveChanges();
             return RedirectToAction("Index");
         }
